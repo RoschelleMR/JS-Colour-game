@@ -38,3 +38,7 @@ body {
   border: 5px solid black;
   padding: 80px;
 }
+
+.color-item:hover {
+  cursor: pointer;
+}

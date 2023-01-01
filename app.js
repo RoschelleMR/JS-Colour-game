@@ -27,6 +27,9 @@ window.addEventListener("load", function(){
             if (correct_color == itemColor){
                 alert("You Win!");
             }
+            else if (correct_color != itemColor && correct_color!=null){
+                alert("Try Again!")
+            }
         })
     });
 
