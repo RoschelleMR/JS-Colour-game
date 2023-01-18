@@ -18,25 +18,61 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* main {
+.main-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
-} */
+}
+
+main {
+  display: grid;
+}
+
+.section-container {
+  margin-bottom: 15px;
+}
+
+.gen-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.generate-btn {
+  border: none;
+  padding: 10px;
+  background-color: rgb(42, 165, 122);
+  color: white;
+  font-weight: 600;
+}
+
+.generate-btn:hover {
+  cursor: pointer;
+  background-color: rgba(42, 165, 122, 0.864);
+  color: white;
+}
+
+.trial-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(119, 119, 255);
+  justify-items: center;
+}
 
 .color-options {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  column-gap: 15px;
+  column-gap: 10px;
   row-gap: 10px;
-  width: 100px;
 }
 
 .color-item {
   width: 50px;
-  border: 5px solid black;
-  padding: 80px;
+  border: 2px solid black;
+  padding: 100px;
 }
 
 .color-item:hover {

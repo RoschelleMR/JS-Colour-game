@@ -1,17 +1,40 @@
 window.addEventListener("load", function(){
     let correct_color;
+    let tries;
+    let gameState = true;
+
+
+    let trialBox = document.querySelector(".trial-box");
+    let trialMessage = document.querySelector(".trial-message");
     let gen_btn = document.querySelector(".generate-btn");
     let gen_color_box = document.querySelector(".gen-color-box");
     let colorItemBoxes = document.querySelectorAll(".color-item");
     let itemBoxArray = [...colorItemBoxes];
 
     gen_btn.addEventListener("click", function(e){
-        e.preventDefault;
+        e.preventDefault; 
+
+        tries = 3;
+        trialBox.innerHTML = "";
+        trialMessage.innerHTML = "";
+        gameState = true;
+
+        initiateGame();
+    })
+
+    
+    function initiateGame() {
+
+        trialBox.innerHTML = "Tries: " + tries;
+
+
         correct_color = "#" + Math.floor(Math.random()*16777215).toString(16);
         gen_color_box.innerHTML = correct_color;
 
         generateColorBoxes();
-    })
+
+    
+    }
 
     itemBoxArray.forEach(colorItem => {
         
@@ -23,15 +46,31 @@ window.addEventListener("load", function(){
             itemColor = itemColor.split(", ");
 
             itemColor = rgbToHex(itemColor);
+
+            console.log("game " + tries)
+
             
-            if (correct_color == itemColor){
-                alert("You Win!");
+            
+            if (correct_color == itemColor && gameState == true){
+                trialMessage.innerHTML = "You Won!!";
+                gameState = false;
             }
-            else if (correct_color != itemColor && correct_color!=null){
-                alert("Try Again!")
+            else if (correct_color != itemColor && gameState == true){
+                tries--;
+                console.log(tries)
+                if (tries === 0) {
+                    trialMessage.innerHTML = "You Lost, Try again!";
+                    gameState = false;
+                }
+                else{
+                    trialBox.innerHTML = "Tries: " + tries;
+                    trialMessage.innerHTML = "Try Again"
+                }
             }
+
         })
     });
+
 
     function rgbToHex(rgbArray) {
         return("#" + toHex(rgbArray[0]) + toHex(rgbArray[1]) + toHex(rgbArray[2]));
@@ -47,7 +86,6 @@ window.addEventListener("load", function(){
 
         itemBoxArray.forEach(box => {
             random_color = "#" + Math.floor(Math.random()*16777215).toString(16);
-            box.innerHTML = random_color;
             box.style.backgroundColor = random_color;
         });
 
@@ -61,12 +99,19 @@ window.addEventListener("load", function(){
             if (i == randomBoxIndex){
                 correct_box = itemBoxArray[i];
 
-                correct_box.innerHTML = correct_color;
-
                 correct_box.style.backgroundColor = correct_color;
             }
             
         }
+    }
+
+    function clearGame() {
+        gen_color_box.innerHTML = "";
+        trialBox.innerHTML = "";
+        trialMessage.innerHTML = "";
+        itemBoxArray.forEach(box => {
+            box.style.backgroundColor = "";
+        });
     }
 
 })
