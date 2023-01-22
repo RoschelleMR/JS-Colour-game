@@ -27,7 +27,7 @@ body {
 }
 
 main {
-  display: grid;
+  /* display: grid; */
 }
 
 .section-container {
@@ -57,24 +57,37 @@ main {
 
 .trial-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  background-color: rgb(119, 119, 255);
-  justify-items: center;
+  text-align: center;
+  grid-template-columns: 1fr 8fr;
+  color: black;
+}
+
+.trial-box {
+  background-color: rgb(188, 139, 245);
+}
+
+.trial-message {
+  background-color: rgb(217, 139, 245);
 }
 
 .color-options {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-wrap: wrap;
   column-gap: 10px;
   row-gap: 10px;
 }
 
 .color-item {
-  width: 50px;
+  /* width: 50px; */
+  flex: max(40px, 100%/3 - 10px); /* and this */
   border: 2px solid black;
-  padding: 100px;
+  padding: 80px;
 }
 
 .color-item:hover {
   cursor: pointer;
+}
+
+.wrongBox {
+  opacity: 0.4;
 }

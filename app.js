@@ -1,7 +1,7 @@
 window.addEventListener("load", function(){
     let correct_color;
     let tries;
-    let gameState = true;
+    let gameState = false;
 
 
     let trialBox = document.querySelector(".trial-box");
@@ -19,6 +19,12 @@ window.addEventListener("load", function(){
         trialMessage.innerHTML = "";
         gameState = true;
 
+        itemBoxArray.forEach(box => {
+            if (box.classList.contains("wrongBox")){
+                box.classList.remove("wrongBox");
+            }
+        });
+
         initiateGame();
     })
 
@@ -27,13 +33,31 @@ window.addEventListener("load", function(){
 
         trialBox.innerHTML = "Tries: " + tries;
 
-
         correct_color = "#" + Math.floor(Math.random()*16777215).toString(16);
         gen_color_box.innerHTML = correct_color;
 
         generateColorBoxes();
 
     
+    }
+
+    function setWrongBoxClassName(){
+
+        for (let i = 0; i < itemBoxArray.length; i++) {
+
+            box = itemBoxArray[i];
+            itemColor = box.style.backgroundColor;
+            itemColor =  itemColor.substring(4, itemColor.length - 1);
+            itemColor = itemColor.split(", ");
+
+            itemColor = rgbToHex(itemColor);
+            
+            if (itemColor !== correct_color){
+                box.classList.add("wrongBox");
+                console.log(itemColor, "right " + correct_color)
+            }
+          
+        }
     }
 
     itemBoxArray.forEach(colorItem => {
@@ -54,6 +78,7 @@ window.addEventListener("load", function(){
             if (correct_color == itemColor && gameState == true){
                 trialMessage.innerHTML = "You Won!!";
                 gameState = false;
+                setWrongBoxClassName();
             }
             else if (correct_color != itemColor && gameState == true){
                 tries--;
@@ -61,6 +86,7 @@ window.addEventListener("load", function(){
                 if (tries === 0) {
                     trialMessage.innerHTML = "You Lost, Try again!";
                     gameState = false;
+                    setWrongBoxClassName();
                 }
                 else{
                     trialBox.innerHTML = "Tries: " + tries;
@@ -103,15 +129,6 @@ window.addEventListener("load", function(){
             }
             
         }
-    }
-
-    function clearGame() {
-        gen_color_box.innerHTML = "";
-        trialBox.innerHTML = "";
-        trialMessage.innerHTML = "";
-        itemBoxArray.forEach(box => {
-            box.style.backgroundColor = "";
-        });
     }
 
 })
